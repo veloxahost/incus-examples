@@ -1,0 +1,9 @@
+# Lets a system container run Docker / containerd inside.
+# Use together with a resources profile, e.g.:  incus launch ... -p default -p docker-ready -p web-small
+description: Run Docker inside a system container
+config:
+  security.nesting: "true"
+  security.syscalls.intercept.mknod: "true"
+  security.syscalls.intercept.setxattr: "true"
+  linux.kernel_modules: overlay,br_netfilter,ip_tables,ip6_tables,nf_nat,xt_conntrack
+devices: {}

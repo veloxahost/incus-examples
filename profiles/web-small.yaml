@@ -1,0 +1,18 @@
+# Small web server: 1 vCPU, 1 GiB RAM, 20 GiB root disk, bridged network.
+# Adjust "pool" and "network" to match `incus storage list` / `incus network list`.
+description: 1 vCPU / 1 GiB / 20 GiB web server
+config:
+  limits.cpu: "1"
+  limits.memory: 1GiB
+  limits.memory.enforce: hard
+  limits.processes: "2000"
+devices:
+  root:
+    path: /
+    pool: default
+    size: 20GiB
+    type: disk
+  eth0:
+    name: eth0
+    network: incusbr0
+    type: nic

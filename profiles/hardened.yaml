@@ -1,0 +1,11 @@
+# Defensive defaults for untrusted workloads. Don't combine with docker-ready.
+description: Hardened unprivileged container
+config:
+  security.privileged: "false"
+  security.nesting: "false"
+  security.idmap.isolated: "true"   # unique uid/gid range per container
+  security.syscalls.deny_compat: "true"
+  limits.processes: "1000"
+  limits.cpu.allowance: 50%
+  boot.autostart: "true"
+devices: {}
