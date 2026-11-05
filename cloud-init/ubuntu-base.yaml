@@ -1,0 +1,41 @@
+#cloud-config
+# Base setup: sudo user with your SSH key, no password logins, auto security updates, firewall.
+# Replace the ssh_authorized_keys entry before use.
+users:
+  - name: deploy
+    groups: [sudo]
+    shell: /bin/bash
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    lock_passwd: true
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAA...replace-with-your-key you@example.com
+
+package_update: true
+package_upgrade: true
+packages: [ufw, fail2ban, unattended-upgrades, curl, ca-certificates]
+
+write_files:
+  - path: /etc/ssh/sshd_config.d/99-hardening.conf
+    content: |
+      PasswordAuthentication no
+      KbdInteractiveAuthentication no
+      PermitRootLogin prohibit-password
+      MaxAuthTries 3
+  - path: /etc/fail2ban/jail.local
+    content: |
+      [DEFAULT]
+      bantime = 1h
+      backend = systemd
+      [sshd]
+      enabled = true
+      maxretry = 3
+
+runcmd:
+  - ufw default deny incoming
+  - ufw default allow outgoing
+  - ufw limit 22/tcp
+  - ufw allow 80/tcp
+  - ufw allow 443/tcp
+  - ufw --force enable
+  - systemctl restart ssh || systemctl restart sshd
+  - systemctl enable --now fail2ban
