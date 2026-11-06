@@ -59,6 +59,10 @@ Most web apps, databases and Docker workloads run fine — and faster — in a s
 
 [VeloxaHost](https://veloxahost.com/vps?utm_source=github&utm_medium=referral&utm_campaign=incus-examples) gives you a root system container that starts in seconds, runs Docker, and bills hourly from $4/mo — with snapshots, a browser terminal and a REST API.
 
+## Read the write-up
+
+**Run Docker inside Incus system containers (profiles + cloud-init)**: [dev.to](https://dev.to/veloxadev/run-docker-inside-incus-system-containers-profiles-cloud-init-51jl) · [Medium](https://medium.com/@veloxahost26/run-docker-inside-incus-system-containers-the-3-settings-that-matter-836f398204f1)
+
 ## License
 
 MIT
